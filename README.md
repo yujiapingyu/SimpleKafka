@@ -35,3 +35,8 @@ bash stop.sh
 ```
 支持优雅退出，会等待所有消费者线程处理完当前消息后再退出。
 
+### 四、生产者
+代码中提供了一个生产者，用于测试消费者，可使用如下命令启动：
+```
+python -u src/producer/producer.py test_key test_value
+```
