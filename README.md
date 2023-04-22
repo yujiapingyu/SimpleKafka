@@ -27,6 +27,7 @@ class_name = TestConsumer
 ```
 bash start.sh
 ```
+启动后会将pid写入procee.pid文件中，方便停止时使用。
 
 ### 三、停止
 ```
