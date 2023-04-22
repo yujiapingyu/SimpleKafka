@@ -1,15 +1,26 @@
 import json
 import threading
 import time
+import signal
+
 from consumer.test_consumer import TestConsumer
 from consumer.redis_consumer import RedisConsumer
 from config import ConsumerConfig
 
+stop_event = threading.Event()
+
+def exit(signum, frame):
+    print('receive signal {}, exit...'.format(signum))
+    stop_event.set()
+    
+# 注册信号处理函数
+signal.signal(signal.SIGINT, exit)
+signal.signal(signal.SIGTERM, exit)
+
 def launch(config_path, consumers):
     config = ConsumerConfig(config_path)
     consumer_threads = []
-    stop_event = threading.Event()
-    
+
     # 从配置文件读取读取配置并依次启动所有的消费者线程
     for consumer in consumers:
         my_config = config.get_consumer_config(consumer)
@@ -19,15 +30,8 @@ def launch(config_path, consumers):
         consumer_thread.start()
         print('Consumer {} started.'.format(consumer))
         consumer_threads.append(consumer_thread)
-        
-    try:
-        while True:
-            time.sleep(0.1)
-    except KeyboardInterrupt:
-        print("Stopping consumer threads...")
-        stop_event.set()
-        
-    # join所有的消费者线程
+           
+    # 等待所有消费者线程结束
     for thread in consumer_threads:
         thread.join()
 
