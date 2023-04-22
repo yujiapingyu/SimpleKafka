@@ -1,13 +1,13 @@
 import json
-from base_consumer import BaseKafkaConsumer
+from .base_consumer import BaseKafkaConsumer
 from config import ConsumerConfig
 
 class TestConsumer(BaseKafkaConsumer):
-    def __init__(self, conf):
-        super().__init__(conf, self.process_message)
+    def __init__(self, conf, stop_event):
+        super().__init__(conf, self.process_message, stop_event)
 
     def process_message(self, message):
-        print('Received message: {}'.format(message))
+        print('{}: Received message: {}'.format(self.__class__.__name__, message))
         
 if __name__ == '__main__':
     config = ConsumerConfig('consumer.conf')

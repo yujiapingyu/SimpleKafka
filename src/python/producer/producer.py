@@ -1,4 +1,6 @@
 import datetime
+import json
+import sys
 from confluent_kafka import Producer
 
 conf = {'bootstrap.servers': 'localhost:9092'}
@@ -11,7 +13,13 @@ def delivery_report(err, msg):
     else:
         print('Message delivered to {} [{}]'.format(msg.topic(), msg.partition()))
 
-message = 'Hello, Kafka from Python! Current time is: {}'.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+# message = 'Hello, Kafka from Python! Current time is: {}'.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+message = json.dumps({
+    'key': sys.argv[1],
+    'value': sys.argv[2],
+    'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+})
 
 producer.produce('test', key=None, value=message, callback=delivery_report)
 
