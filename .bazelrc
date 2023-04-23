@@ -1,0 +1,3 @@
+--cxxopt='-std=c++17'
+build:opt --copt="-O2"
+build:opt --cxxopt="-std=c++17"

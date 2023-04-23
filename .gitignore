@@ -3,3 +3,9 @@ __pycache__
 process.pid
 
 *.pickle
+
+.vscode
+
+bazel-*
+
+main_work
