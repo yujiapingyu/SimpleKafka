@@ -17,10 +17,12 @@ docker run -d --name kafka \
     -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 \
     confluentinc/cp-kafka:5.0.0
 
+# 创建一个test的topic，注意需要等到kafka启动完成后才能创建topic
 docker exec -it kafka kafka-topics --create --topic test --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
 
 # 启动redis
 docker run -d --name my-redis \
     --restart unless-stopped \
+    --network dev-network  \
     -p 6379:6379 \
     redis:latest

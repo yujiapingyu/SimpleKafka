@@ -36,7 +36,11 @@ class RedisConsumer(BaseKafkaConsumer):
 
     def process_message(self, message):
         # print('{}: Received message: {}'.format(self.__class__.__name__, message))
-        obj = json.loads(message)
+        try:
+            obj = json.loads(message)
+        except Exception as e:
+            print('Illegal json string: {}'.format(message))
+            return
         self.buffer.append(obj)
         if len(self.buffer) >= 5:
             self.flush()
