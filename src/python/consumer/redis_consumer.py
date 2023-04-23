@@ -9,7 +9,7 @@ from config import ConsumerConfig
 class RedisConsumer(BaseKafkaConsumer):
     def __init__(self, conf, stop_event):
         super().__init__(conf, self.process_message, stop_event, self.read_buffer_from_file, self.save_buffer_to_file)
-        self.redis = redis.Redis(host='localhost', port=6379, db=0)
+        self.redis = redis.Redis(host='my-redis', port=6379, db=0)
         self.buffer = []
         self.pickle_file = 'buffer.pickle'
         
