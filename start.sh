@@ -10,7 +10,7 @@ if [ -f "$WORKSPACE/process.pid" ]; then
 fi
 
 # 启动程序，并将pid写入process.pid文件
-python -u $WORKSPACE/src/python/main.py &
+python3 -u $WORKSPACE/src/python/main.py &
 pid=$!
 echo "pid=$pid"
 echo $pid > $WORKSPACE/process.pid
