@@ -9,7 +9,7 @@ cc_proto_library(
 cc_binary(
     name = 'main_work',
     srcs = glob(['src/cpp/*.cpp', 'src/cpp/*.h']),
-    linkopts = [],
+    linkopts = ['-L/usr/local/lib', '-lcppkafka', '-lpthread'],
     copts = ['-g'],
     deps = [':proto']
 )
