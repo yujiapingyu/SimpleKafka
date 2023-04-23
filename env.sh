@@ -1,5 +1,6 @@
 # 启动zookeeper
 docker run -d --name zookeeper \
+    --restart unless-stopped \
     --network dev-network \
     -p 2181:2181 \
     -e ZOOKEEPER_CLIENT_PORT=2181 \
@@ -7,6 +8,7 @@ docker run -d --name zookeeper \
 
 # 启动kafka
 docker run -d --name kafka \
+    --restart unless-stopped \
     --network dev-network  \
     -p 9092:9092 \
     -e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 \
@@ -15,7 +17,10 @@ docker run -d --name kafka \
     -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 \
     confluentinc/cp-kafka:5.0.0
 
+docker exec -it kafka kafka-topics --create --topic test --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
+
 # 启动redis
 docker run -d --name my-redis \
+    --restart unless-stopped \
     -p 6379:6379 \
     redis:latest
