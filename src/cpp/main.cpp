@@ -28,11 +28,14 @@ public:
     }
 
     ~KafkaConsumerThread() {
+        cout << "Stopping consumer thread..." << endl;
         consumer_.pause();
         consumer_thread_.join();
+        cout << "Consumer thread stopped" << endl;
     }
 
     void consume() {
+        cout << "Starting consumer thread..." << endl;
         while (running) {
             auto msg = consumer_.poll();
             if (msg) {
