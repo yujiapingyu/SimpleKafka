@@ -4,7 +4,7 @@
 一个简单的python Kafka消费者客户端，用于消费Kafka中的消息。
 支持配置多个消费者，使用多线程方式启动多个消费者。
 
-## Usage
+## Usage Python
 ### 一、配置
 配置文件为consumer.conf，示例：
 ```
@@ -39,4 +39,28 @@ bash stop.sh
 代码中提供了一个生产者，用于测试消费者，可使用如下命令启动：
 ```
 python -u src/producer/producer.py test_key test_value
+```
+
+## Usage CPP
+### Environment
+安装必要必要的依赖库：
+```bash
+apt-get install libssl-dev librdkafka-dev libboost-all-dev -y
+```
+安装cppkafka库：
+```bash
+git clone https://github.com/edenhill/librdkafka.git
+cd librdkafka
+./configure --prefix=/usr
+make
+sudo make install
+```
+### Build
+```bash
+bash build.sh
+```
+### Run
+```bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+./main_work
 ```
