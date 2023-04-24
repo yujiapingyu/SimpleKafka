@@ -45,7 +45,7 @@ python -u src/producer/producer.py test_key test_value
 ### Environment
 安装必要必要的依赖库：
 ```bash
-apt-get install libssl-dev librdkafka-dev libboost-all-dev -y
+apt-get install libssl-dev librdkafka-dev libboost-all-dev libunwind-dev -y
 ```
 安装cppkafka库：
 ```bash
