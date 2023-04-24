@@ -1,4 +1,4 @@
-workspace(name = "brpc_test")
+workspace(name = "simple_kafka")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
@@ -41,10 +41,11 @@ http_archive(
     url = "https://ghproxy.com/https://github.com/google/leveldb/archive/a53934a3ae1244679f812d998a4f16f2c7f309a6.tar.gz"
 )
 
-git_repository(
-    name   = "com_github_gflags_gflags",
-    commit = "30dbc81fb5ffdc98ea9b14b1918bfe4e8779b26e", # v2.2.0 + fix of include path
-    remote = "https://ghproxy.com/https://github.com/gflags/gflags.git"
+http_archive(
+    name = "com_github_gflags_gflags",
+    sha256 = "34af2f15cf7367513b352bdcd2493ab14ce43692d2dcd9dfc499492966c64dcf",
+    strip_prefix = "gflags-2.2.2",
+    urls = ["https://ghproxy.com/https://github.com/gflags/gflags/archive/v2.2.2.tar.gz"],
 )
 
 http_archive(
@@ -55,3 +56,11 @@ http_archive(
     sha256 = "71088f673c197a6b760a20ac6b07f481cc4a0b08917f35acbf325de01b3f3fe7",
     strip_prefix = "brpc-0.9.7",
 )
+
+http_archive(
+    name = "com_github_google_glog",
+    sha256 = "122fb6b712808ef43fbf80f75c52a21c9760683dae470154f02bddfc61135022",
+    strip_prefix = "glog-0.6.0",
+    urls = ["https://ghproxy.com/https://github.com/google/glog/archive/v0.6.0.zip"],
+)
+
