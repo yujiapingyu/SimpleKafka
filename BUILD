@@ -11,5 +11,5 @@ cc_binary(
     srcs = glob(['src/cpp/*.cpp', 'src/cpp/*.h']),
     linkopts = ['-lunwind', '-ltcmalloc', '-L/usr/local/lib', '-lcppkafka', '-lpthread'],
     copts = ['-g'],
-    deps = [':proto', '@com_github_google_glog//:glog']
+    deps = [':proto', '@brpc//:brpc', '@com_github_google_glog//:glog', '@com_github_nlohmann_json//:json']
 )

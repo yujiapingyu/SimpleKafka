@@ -1,0 +1,16 @@
+syntax="proto3";
+package simple_kafka;
+
+option cc_generic_services = true;
+
+message KeyRequest {
+      string key = 1;
+};
+
+message ValueResponse {
+      string value = 1;
+};
+
+service QueryService {
+      rpc GetValue(KeyRequest) returns (ValueResponse);
+};
