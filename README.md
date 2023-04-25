@@ -1,8 +1,13 @@
-# Simple Kafka Consumer
+# Simple Kafka Consumer Demo
 
 ## Description
+### 1. Python
 一个简单的python Kafka消费者客户端，用于消费Kafka中的消息。
 支持配置多个消费者，使用多线程方式启动多个消费者。
+
+### 2. CPP
+使用BPRC框架，实现了一个简单的一边消费一边对外提供查询服务的服务。
+可以视为一个简单的KV存储服务，支持多线程并发查询，支持从Kafka流中更新KV数据。
 
 ## Usage Python
 ### 一、配置
