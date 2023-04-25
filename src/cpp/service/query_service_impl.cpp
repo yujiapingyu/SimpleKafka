@@ -9,6 +9,7 @@
 #include <nlohmann/json.hpp>
 
 #include "query_service_impl.h"
+#include "config_manager.h"
 #include "proto/kv.pb.h"
 
 using json = nlohmann::json;
@@ -53,12 +54,13 @@ void QueryServiceImpl::GetValue(google::protobuf::RpcController *cntl_base,
 
 void QueryServiceImpl::consume() {
     LOG(INFO) << "Starting consumer thread...";
-    Configuration config = {
-        { "bootstrap.servers", "kafka:9092" },
-        { "group.id", "cpp-consumer-group" },
-        { "auto.offset.reset", "earliest" }
+    auto config = ConfigManager::get_instance().get_config();
+    Configuration kafka_config = {
+        { "bootstrap.servers", config["kafka"]["bootstrap.servers"].get<std::string>() },
+        { "group.id", config["kafka"]["group.id"].get<std::string>() },
+        { "auto.offset.reset", config["kafka"]["auto.offset.reset"].get<std::string>() }
     };
-    Consumer consumer(config);
+    Consumer consumer(kafka_config);
     std::string topic = "test";
     consumer.subscribe({ topic });
     while (running) {

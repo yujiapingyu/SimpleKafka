@@ -67,5 +67,5 @@ bash build.sh
 ### Run
 ```bash
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-./main_work
+./main_work --config_file=./src/cpp/config/stream_config.json
 ```

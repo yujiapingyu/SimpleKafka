@@ -1,0 +1,7 @@
+{
+    "kafka": {
+        "bootstrap.servers": "kafka:9092",
+        "group.id": "cpp-consumer-group",
+        "auto.offset.reset": "earliest"
+    }
+}
