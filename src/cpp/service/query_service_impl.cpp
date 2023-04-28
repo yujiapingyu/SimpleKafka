@@ -35,11 +35,17 @@ void QueryServiceImpl::GetValue(google::protobuf::RpcController *cntl_base,
     std::string key = request->key();
     std::string value;
 
+    if (cache.Get(key, value)) {
+        response->set_value(value);
+        return;
+    }
+
     {
         std::unique_lock<std::mutex> lock(map_mutex);
         auto it = kv_map.find(key);
         if (it != kv_map.end()) {
             value = it->second;
+            cache.Put(key, value);
         }
     }
 

@@ -5,6 +5,7 @@
 #include <string>
 #include <thread>
 
+#include "src/cpp/lru/lru_cache.h"
 #include "proto/kv.pb.h"
 
 namespace simple_kafka {
@@ -27,6 +28,7 @@ private:
     std::mutex map_mutex;
     std::atomic<bool> running{true};
     std::thread kafka_consumer_thread;
+    LRUCache cache{1000, std::chrono::seconds(60)};
 };
 
 } // end of namespace simple_kafka

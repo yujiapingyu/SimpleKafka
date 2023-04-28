@@ -7,17 +7,27 @@ cc_proto_library(
 )
 
 cc_library(
-    name = 'service',
-    srcs = glob(['src/cpp/service/*.cpp', 'src/cpp/service/*.h']),
+    name = 'lru',
+    srcs = glob(['src/cpp/lru/*.cpp']),
+    hdrs = glob(['src/cpp/lru/*.h']),
     copts = ['-g'],
     visibility = ["//visibility:public"],
-    deps = [':proto', '@brpc//:brpc', '@com_github_google_glog//:glog', '@com_github_nlohmann_json//:json']
+    deps = []
+)
+
+cc_library(
+    name = 'service',
+    srcs = glob(['src/cpp/service/*.cpp']),
+    hdrs = glob(['src/cpp/service/*.h']),
+    copts = ['-g'],
+    visibility = ["//visibility:public"],
+    deps = [':proto', '@brpc//:brpc', '@com_github_google_glog//:glog', '@com_github_nlohmann_json//:json', ':lru']
 )
 
 cc_binary(
     name = 'main_work',
-    srcs = glob(['src/cpp/*.cpp', 'src/cpp/*.h']),
+    srcs = glob(['src/cpp/*.cpp']),
     linkopts = ['-lunwind', '-ltcmalloc', '-L/usr/local/lib', '-lcppkafka', '-lpthread'],
     copts = ['-g'],
-    deps = [':proto', '@brpc//:brpc', '@com_github_google_glog//:glog', 'service']
+    deps = [':proto', '@brpc//:brpc', '@com_github_google_glog//:glog', ':service']
 )
